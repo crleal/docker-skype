@@ -57,6 +57,7 @@ prepare_docker_volume_parameters() {
   VOLUMES+=" --volume=${XSOCK}:${XSOCK}"
   VOLUMES+=" --volume=${XAUTH}:${XAUTH}"
   VOLUMES+=" --volume=/run/user/${USER_UID}/pulse:/run/pulse"
+  VOLUMES+=" --volume=/etc/localtime:/etc/localtime:ro"
 }
 
 prepare_docker_device_parameters() {
