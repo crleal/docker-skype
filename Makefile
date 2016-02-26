@@ -14,7 +14,8 @@ VOLUMES = \
 	--volume=$(HOME)/Downloads:/home/skype/Downloads \
 	--volume=${XSOCK}:${XSOCK} \
 	--volume=${XAUTH}:${XAUTH} \
-	--volume=/run/user/$(shell id -u)/pulse:/run/pulse
+	--volume=/run/user/$(shell id -u)/pulse:/run/pulse \
+	--volume=/etc/localtime:/etc/localtime:ro
 
 help:
 	@echo ""
@@ -22,20 +23,20 @@ help:
 	@echo ""
 	@echo "   1. make build            - build the skype image"
 	@echo "   1. make install          - install launch wrappers"
-	@echo "   2. make skype 				   - launch skype"
+	@echo "   2. make skype 	   - launch skype"
 	@echo "   2. make bash             - bash login"
 	@echo ""
 
 build:
-	@docker build --tag=sameersbn/skype .
+	@docker build --tag=crleal/skype .
 
 install uninstall: build
 	@docker run -it --rm \
 		--volume=/usr/local/bin:/target \
-		sameersbn/skype:latest $@
+		crleal/skype:latest $@
 
 skype bash:
 	@docker run -it --rm \
 		${ENV_VARS} \
 		${VOLUMES} \
-		sameersbn/skype:latest $@
+		crleal/skype:latest $@
